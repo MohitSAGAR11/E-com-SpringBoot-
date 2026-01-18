@@ -27,6 +27,7 @@ public class ProductService {
     }
 
     public Product addProduct(ProductRequest productRequest, MultipartFile imageFile) throws IOException {
+        System.out.println(productRequest);
         Product product = new Product();
         product.setName(productRequest.name());
         product.setBrand(productRequest.brand());
@@ -40,5 +41,34 @@ public class ProductService {
         product.setImageType(imageFile.getContentType());
         product.setImageData(imageFile.getBytes());
         return repo.save(product);
+    }
+
+    public Product updateProduct(int id, ProductRequest productRequest, MultipartFile imageFile) throws IOException {
+        Product product = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+        product.setName(productRequest.name());
+        product.setBrand(productRequest.brand());
+        product.setDescription(productRequest.description());
+        product.setPrice(Long.parseLong(productRequest.price()));
+        product.setCategory(productRequest.category());
+        product.setQuantity(Integer.parseInt(productRequest.quantity()));
+        product.setReleaseDate(Date.valueOf(productRequest.releaseDate()));
+        product.setAvailable(productRequest.available());
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            product.setImageName(imageFile.getOriginalFilename());
+            product.setImageType(imageFile.getContentType());
+            product.setImageData(imageFile.getBytes());
+        }
+
+        return repo.save(product);
+    }
+
+
+    public void deleteProduct(int id) {
+        Product product =  repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        repo.delete(product);
     }
 }

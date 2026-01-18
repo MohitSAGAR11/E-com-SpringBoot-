@@ -9,7 +9,5 @@ public record ProductRequest(
         String quantity,
         String releaseDate,
         boolean available
-
 ) {
-
 }

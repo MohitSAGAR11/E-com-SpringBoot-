@@ -10,10 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ProductController {
 
     @Autowired
@@ -57,8 +59,34 @@ public class ProductController {
         byte[] imageFile = product.getImageData();
 
         return  ResponseEntity.ok()
-//                .contentType(MediaType.valueOf(product.getImageType()))
                 .body(imageFile);
+    }
+
+    @PutMapping(value = "/product/{id}")
+    public ResponseEntity<String> updateProduct(
+            @PathVariable int id,
+            @RequestPart("product") ProductRequest product,
+            @RequestPart("imageFile") MultipartFile imageFile) {
+        try {
+            Product prod = service.updateProduct(id, product, imageFile);
+            return new ResponseEntity<>("Product updated successfully", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>("Product not found with id: " + id, HttpStatus.NOT_FOUND);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Failed to process image file", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Update failed", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable int id) {
+        Product product = service.getProductById(id);
+        if (product == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        service.deleteProduct(id);
+        return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
     }
 
 }
