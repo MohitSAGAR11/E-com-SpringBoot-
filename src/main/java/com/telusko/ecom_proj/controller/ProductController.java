@@ -48,4 +48,17 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/product/{id}/image")
+    public ResponseEntity<byte[]> getImageByProductId(@PathVariable int id) {
+        Product product = service.getProductById(id);
+        if (product == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        byte[] imageFile = product.getImageData();
+
+        return  ResponseEntity.ok()
+//                .contentType(MediaType.valueOf(product.getImageType()))
+                .body(imageFile);
+    }
+
 }
