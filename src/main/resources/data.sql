@@ -1,0 +1,11 @@
+INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, CATEGORY, QUANTITY, RELEASE_DATE, AVAILABLE) VALUES
+                                                                                                ('Tesla Model 3', 'Electric sedan with autopilot features and long range battery', 45000.00, 'Electric', 15, '2023-01-15', true),
+                                                                                                ('Toyota Camry', 'Reliable midsize sedan with excellent fuel efficiency', 28000.00, 'Sedan', 25, '2023-03-20', true),
+                                                                                                ('Ford Mustang', 'Classic American muscle car with powerful V8 engine', 55000.00, 'Sports', 8, '2023-02-10', true),
+                                                                                                ('Honda CR-V', 'Spacious SUV perfect for families with advanced safety features', 32000.00, 'SUV', 20, '2023-04-05', true),
+                                                                                                ('BMW X5', 'Luxury SUV with premium interior and cutting-edge technology', 65000.00, 'Luxury', 10, '2023-05-12', true),
+                                                                                                ('Chevrolet Silverado', 'Heavy-duty pickup truck with impressive towing capacity', 42000.00, 'Truck', 12, '2023-01-30', true),
+                                                                                                ('Audi A4', 'Sophisticated sedan with quattro all-wheel drive system', 48000.00, 'Sedan', 18, '2023-06-18', true),
+                                                                                                ('Jeep Wrangler', 'Rugged off-road vehicle built for adventure', 38000.00, 'SUV', 14, '2023-03-25', true),
+                                                                                                ('Porsche 911', 'High-performance sports car with iconic design', 115000.00, 'Sports', 5, '2023-07-08', true),
+                                                                                                ('Hyundai Tucson', 'Affordable compact SUV with modern features', 27000.00, 'SUV', 30, '2023-02-28', true);
